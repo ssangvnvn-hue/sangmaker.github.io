@@ -1,0 +1,15 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kết nối TikTok · Van Phong AI</title>
+<style>body{font-family:system-ui,Segoe UI,Arial,sans-serif;max-width:760px;margin:40px auto;padding:0 16px;line-height:1.6;color:#1f2937}textarea{width:100%;height:110px;font:13px monospace;padding:8px;border:1px solid #cbd5e1;border-radius:8px}button{margin-top:10px;font:inherit;font-size:16px;padding:10px 18px;border:0;border-radius:10px;background:#fe2c55;color:#fff;cursor:pointer}.ok{color:#15803d;font-weight:600}.loi{color:#b91c1c;font-weight:600}</style></head><body>
+<h1>Kết nối TikTok · Van Phong AI</h1>
+<p id="tt"></p>
+<textarea id="lk" readonly></textarea>
+<button id="cp">📋 Chép link này</button>
+<p>Rồi quay lại <b>Văn phòng AI</b> → bảng kênh TikTok → dán vào ô → bấm <b>Xong</b>. Trang này không lưu và không gửi mã đi đâu.</p>
+<script>
+const q = new URLSearchParams(location.search), lk = document.getElementById('lk'), tt = document.getElementById('tt');
+lk.value = location.href;
+if (q.get('code')) { tt.className = 'ok'; tt.textContent = '✅ TikTok đã cho phép. Chép nguyên link bên dưới (gồm mã code):'; }
+else if (q.get('error')) { tt.className = 'loi'; tt.textContent = '⚠ TikTok báo lỗi: ' + q.get('error') + ' ' + (q.get('error_description') || ''); }
+else { tt.textContent = 'Trang này nhận mã sau khi bấm "Cho phép" trên TikTok.'; }
+document.getElementById('cp').onclick = async () => { try { await navigator.clipboard.writeText(lk.value); document.getElementById('cp').textContent = '✔ Đã chép'; } catch (e) { lk.select(); document.execCommand('copy'); } };
+</script></body></html>
